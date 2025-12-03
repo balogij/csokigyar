@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Csoki Lista Mozaik</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+          rel="stylesheet" 
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+          crossorigin="anonymous">
+    
+    <style>
+        #my_h5 {
+            background-color: black;
+            opacity: 0.8;
+            border-radius: 5px;
+            padding-left: 5px;
+        }
+        .my_body {
+            background-image: url('./csokik.jpg');
+            background-size: cover;
+        }
+        .my_li {
+            background-color: black;
+            opacity: 0.8;
+            border-radius: 5px;
+            padding-left: 5px;
+        }
+        /* Egyedi stílusok a mozaikhoz */
+        .csoki-card {
+            /* Fix magasság beállítása a mozaik egységességéért */
+            min-height: 200px; 
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .csoki-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        /* Színek a csokitípusokhoz */
+        .card-ét { background-image: url("./etcsoki.jpg"); opacity:0.8;background-size: cover; color: white; } /* Barna */
+        .card-tej { background-image: url('./tejcsoki.jpg'); opacity:0.8; background-size: cover; color: white; border-color: #A0A0A0; } /* Levendula */
+        .card-fehér { background-image: url('./fehercsoki.jpg'); opacity:0.8; background-size: cover; color: white; border-color: #A0A0A0; } /* Elefántcsont */
+    </style>
+</head>
+<body class="my_body">
+<div class="container my-5">
+    <h1 class="mb-4 text-center">🍫 Csoki Mozaik Lista</h1>
+    <hr>
+    
+    <div id="csoki-list-container" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+        </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+        crossorigin="anonymous"></script>
+
+<script>
+    // ----------------------------------------------------
+    // 1. ADATOK ELŐKÉSZÍTÉSE
+    // ----------------------------------------------------
+    const rawData = `1;ét;250;doboz
+2;fehér;210;kimérős
+3;tej;250;doboz
+4;tej;50;papír
+5;ét;80;doboz
+6;tej;240;kimérős
+7;ét;60;doboz
+8;ét;200;papír
+9;tej;110;doboz
+10;ét;150;kimérős
+11;fehér;120;papír
+12;tej;240;doboz
+13;fehér;250;doboz
+14;tej;130;doboz
+15;ét;210;kimérős
+16;fehér;70;kimérős
+17;ét;230;doboz
+18;fehér;50;papír
+19;tej;250;doboz
+20;fehér;220;kimérős`;
+
+    // ----------------------------------------------------
+    // 2. JAVASCRIPT OSZTÁLY (Az Ön Csoki osztályának megfelelője)
+    // ----------------------------------------------------
+    class Csoki {
+        constructor(_id, tipus, tomeg, csomagolas) {
+            this._id = parseInt(_id.trim());
+            this.tipus = tipus.trim().toLowerCase();
+            this.tomeg =  parseInt(tomeg.trim());
+            this.csomagolas = csomagolas.trim().toLowerCase();
+        }
+        
+        // Segédfüggvény a megjelenítéshez
+        getTipusDisplay() {
+            if (this.tipus === 'ét') return 'Étcsokoládé';
+            if (this.tipus === 'tej') return 'Tejcsokoládé';
+            if (this.tipus === 'fehér') return 'Fehér csokoládé';
+            return 'Ismeretlen';
+        }
+        
+        // Segédfüggvény a Bootstrap class nevéhez
+        getCardClass() {
+            return `card-${this.tipus}`;
+        }
+    }
+
+    // ----------------------------------------------------
+    // 3. FELDOLGOZÁS ÉS OBJEKTUMOK LÉTREHOZÁSA
+    // ----------------------------------------------------
+    const csokiObjects = [];
+    const lines = rawData.split('\n');
+
+    lines.forEach(line => {
+        const parts = line.split(';');
+        if (parts.length === 4) {
+            // Létrehozzuk a Csoki objektumot az adatokból
+            const csoki = new Csoki(parts[0], parts[1], parts[2], parts[3]);
+            csokiObjects.push(csoki);
+        }
+    });
+
+    // ----------------------------------------------------
+    // 4. MEGJELENÍTÉS ÉS MOZAIK KIALAKÍTÁSA
+    // ----------------------------------------------------
+    const container = document.getElementById('csoki-list-container');
+
+    csokiObjects.forEach(csoki => {
+        // Létrehozzuk az oszlopot (Bootstrap grid elem)
+        const colDiv = document.createElement('div');
+        // 'col' minden méretben, de a 'row-cols-xl-5' (vagy row-cols-5) beállítja a fő 5 oszlopot
+        colDiv.classList.add('col'); 
+        
+        // Létrehozzuk a kártya tartalmát
+        colDiv.innerHTML = `
+            <div class="card h-100 csoki-card p-3 ${csoki.getCardClass()}">
+                <h5 class="card-title text-uppercase fw-bold" id="my_h5">${csoki.getTipusDisplay()}</h5>
+                <hr>
+                <ul class="list-unstyled">
+                    <li class="my_li"><strong>Súly:</strong> ${csoki.tomeg}g</li>
+                    <li class="my_li"><strong>Csomagolás:</strong> ${csoki.csomagolas.charAt(0).toUpperCase() + csoki.csomagolas.slice(1)}</li>
+                </ul>
+            </div>
+        `;
+
+        // Hozzáadjuk a kártyát a fő konténerhez
+        container.appendChild(colDiv);
+    });
+
+    // 5x4 = 20 elemnek kell lennie. Ellenőrzés:
+    console.log(`Feldolgozott elemek száma: ${csokiObjects.length}. A rács 5x4-es kialakítású (Bootstrap row-cols-5).`);
+
+</script>
+
+</body>
+</html>
