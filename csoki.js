@@ -96,6 +96,8 @@
     }
 
     async function handleFavorite() {
+        const container = document.getElementById('csoki-list-container');
+        container.innerHTML = 'A fájl tartalmának feldolgozása...';
         // 1. Lekérjük a JSON stringet a LocalStorage-ból
         const storedListString = localStorage.getItem('csokiList');
 
@@ -115,8 +117,13 @@
 
         if(csokiObjects.length>0){
             container.innerHTML = '';
+            csokik = [];
+            csokiObjects.forEach(tarolt => {
+                const csoki = new Csoki(tarolt[0], tarolt[1], tarolt[2], tarolt[3], tarolt[4]);
+                csokik.push(csoki);
+            })
         }
-        const sortedByRendeles = csokiObjects.sort((a, b) => b.rendelt_db - a.rendelt_db);
+        const sortedByRendeles = csokik.sort((a, b) => b.rendelt_db - a.rendelt_db);
         const threeLargestByRendelés = sortedByRendeles.slice(0, 3);
 
         threeLargestByRendelés.forEach(csoki => {
@@ -143,6 +150,8 @@
     }
 
     function handleDarkChocolate() {
+        const container = document.getElementById('csoki-list-container');
+        container.innerHTML = 'A fájl tartalmának feldolgozása...';
         const storedListString = localStorage.getItem('csokiList');
 
         let csokiObjects = [];
@@ -157,8 +166,13 @@
 
         if(csokiObjects.length>0){
             container.innerHTML = '';
+            csokik = [];
+            csokiObjects.forEach(tarolt => {
+                const csoki = new Csoki(tarolt[0], tarolt[1], tarolt[2], tarolt[3], tarolt[4]);
+                csokik.push(csoki);
+            })
         }
-        const etcsokik = termekek.filter(termek => termek.tipus === 'ét');
+        const etcsokik = csokik.filter(termek => termek.tipus === 'ét');
 
         etsokik.forEach(csoki => {
             // Létrehozzuk az oszlopot (Bootstrap grid elem)
@@ -184,6 +198,8 @@
     }
 
     function handleMilkChocolate() {
+        const container = document.getElementById('csoki-list-container');
+        container.innerHTML = 'A fájl tartalmának feldolgozása...';
         const storedListString = localStorage.getItem('csokiList');
 
         let csokiObjects = [];
@@ -198,8 +214,13 @@
 
         if(csokiObjects.length>0){
             container.innerHTML = '';
+            csokik = [];
+            csokiObjects.forEach(tarolt => {
+                const csoki = new Csoki(tarolt[0], tarolt[1], tarolt[2], tarolt[3], tarolt[4]);
+                csokik.push(csoki);
+            })
         }
-        const tejcsokik = termekek.filter(termek => termek.tipus === 'tej');
+        const tejcsokik = csokik.filter(termek => termek.tipus === 'tej');
 
         tejcsokik.forEach(csoki => {
             // Létrehozzuk az oszlopot (Bootstrap grid elem)
@@ -225,6 +246,8 @@
     }
 
     function handleWhiteChocolate() {
+        const container = document.getElementById('csoki-list-container');
+        container.innerHTML = 'A fájl tartalmának feldolgozása...';
         const storedListString = localStorage.getItem('csokiList');
 
         let csokiObjects = [];
@@ -239,8 +262,13 @@
 
         if(csokiObjects.length>0){
             container.innerHTML = '';
+            csokik = [];
+            csokiObjects.forEach(tarolt => {
+                const csoki = new Csoki(tarolt[0], tarolt[1], tarolt[2], tarolt[3], tarolt[4]);
+                csokik.push(csoki);
+            })
         }
-        const fehercsokik = termekek.filter(termek => termek.tipus === 'fehér');
+        const fehercsokik = csokik.filter(termek => termek.tipus === 'fehér');
 
         fehercsokik.forEach(csoki => {
             // Létrehozzuk az oszlopot (Bootstrap grid elem)
