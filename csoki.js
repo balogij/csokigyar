@@ -97,7 +97,7 @@
 
     async function handleFavorite() {
         // 1. Lekérjük a JSON stringet a LocalStorage-ból
-        const storedListString = localStorage.getItem('productList');
+        const storedListString = localStorage.getItem('csokiList');
 
         let csokiObjects = [];
 
@@ -143,7 +143,7 @@
     }
 
     function handleDarkChocolate() {
-        const storedListString = localStorage.getItem('productList');
+        const storedListString = localStorage.getItem('csokiList');
 
         let csokiObjects = [];
 
@@ -184,7 +184,7 @@
     }
 
     function handleMilkChocolate() {
-        const storedListString = localStorage.getItem('productList');
+        const storedListString = localStorage.getItem('csokiList');
 
         let csokiObjects = [];
 
@@ -225,7 +225,7 @@
     }
 
     function handleWhiteChocolate() {
-        const storedListString = localStorage.getItem('productList');
+        const storedListString = localStorage.getItem('csokiList');
 
         let csokiObjects = [];
 
