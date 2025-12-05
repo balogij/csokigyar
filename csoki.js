@@ -367,7 +367,7 @@ function handleOrder(e) {
 function handleAbout(e) {
     e.preventDefault();
  
-    const container = document.getElementById('csoki-list-container');
+    const container = document.getElementById('container my-5');
     container.innerHTML = `
     <div class="container mt-5 p-4 bg-light rounded shadow-sm">
         
