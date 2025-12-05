@@ -35,3 +35,9 @@
 .card-ét { background-image: url("./etcsoki.jpg"); opacity:0.8;background-size: cover; color: white; } /* Barna */
 .card-tej { background-image: url('./tejcsoki.jpg'); opacity:0.8; background-size: cover; color: white; border-color: #A0A0A0; } /* Levendula */
 .card-fehér { background-image: url('./fehercsoki.jpg'); opacity:0.8; background-size: cover; color: white; border-color: #A0A0A0; } /* Elefántcsont */
+
+/* gombsor */
+.btn-group-container {
+            margin-top: 50px;
+            text-align: center;
+        }

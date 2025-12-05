@@ -87,7 +87,7 @@
         }
     }
 
-    function eladas(csokiObjects){
+    function handleFavorite() {
         const sortedByRendeles = csokiObjects.sort((a, b) => b.rendelt_db - a.rendelt_db);
         const threeLargestByRendelés = sortedByRendeles.slice(0, 3);
 
@@ -113,5 +113,24 @@
             container.appendChild(colDiv);
         });        
     }
+
+    function handleDarkChocolate() {
+        console.log("Étcsoki gomb megnyomva!");
+        alert("Megnyomtad az Étcsoki gombot.");
+        // Ide illesztheted be az Étcsoki szűrési logikát
+    }
+
+    function handleMilkChocolate() {
+        console.log("Tejcsoki gomb megnyomva!");
+        alert("Megnyomtad a Tejcsoki gombot.");
+        // Ide illesztheted be a Tejcsoki szűrési logikát
+    }
+
+    function handleWhiteChocolate() {
+        console.log("Fehércsoki gomb megnyomva!");
+        alert("Megnyomtad a Fehércsoki gombot.");
+        // Ide illesztheted be a Fehércsoki szűrési logikát
+    }
+
 
 
