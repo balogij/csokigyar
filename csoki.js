@@ -75,12 +75,12 @@
                     </div>
                 `;
 
-                // Hozzáadjuk a kártyát a fő konténerhez
-                container.appendChild(colDiv);
-        });
+                    // Hozzáadjuk a kártyát a fő konténerhez
+                    container.appendChild(colDiv);
+            });
 
-        // 5x4 = 20 elemnek kell lennie. Ellenőrzés:
-        console.log(`Feldolgozott elemek száma: ${csokiObjects.length}. A rács 5x4-es kialakítású (Bootstrap row-cols-5).`);    
+            // 5x4 = 20 elemnek kell lennie. Ellenőrzés:
+            console.log(`Feldolgozott elemek száma: ${csokiObjects.length}. A rács 5x4-es kialakítású (Bootstrap row-cols-5).`);    
 
         } catch (error) {
             console.error("Hiba történt a fájl betöltése vagy feldolgozása során:", error);
@@ -125,7 +125,7 @@
             console.error("Hiba történt a fájl betöltése vagy feldolgozása során:", error);
             container.innerHTML = `<div>Hiba: ${error.message}</div>`;
         }
-                    
+
         const sortedByRendeles = csokiObjects.sort((a, b) => b.rendelt_db - a.rendelt_db);
         const threeLargestByRendelés = sortedByRendeles.slice(0, 3);
 
