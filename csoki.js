@@ -24,8 +24,8 @@
     async function loadChocolatesFromFile() {
     const fileName = 'csokibolt.txt';
     const chocolateList = [];
-    const listContainer = document.getElementById('chocolateList');
-    listContainer.innerHTML = 'A fájl tartalmának feldolgozása...';
+    const container = document.getElementById('csoki-list-container');
+    container.innerHTML = 'A fájl tartalmának feldolgozása...';
 
     try {
         // Fetch API hívás a fájl tartalmának lekérésére a tárhelyről
@@ -46,14 +46,12 @@
 
         lines.forEach(line => {
             const parts = line.split(';');
-            if (parts.length === 4) {
+            if (parts.length === 5) {
                 // Létrehozzuk a Csoki objektumot az adatokból
                 const csoki = new Csoki(parts[0], parts[1], parts[2], parts[3], parts[4]);
                 csokiObjects.push(csoki);
             }
         });
-
-        const container = document.getElementById('csoki-list-container');
 
         csokiObjects.forEach(csoki => {
             // Létrehozzuk az oszlopot (Bootstrap grid elem)
@@ -77,13 +75,13 @@
             container.appendChild(colDiv);
         });
 
+        // 5x4 = 20 elemnek kell lennie. Ellenőrzés:
+        console.log(`Feldolgozott elemek száma: ${csokiObjects.length}. A rács 5x4-es kialakítású (Bootstrap row-cols-5).`);    
 
         } catch (error) {
             console.error("Hiba történt a fájl betöltése vagy feldolgozása során:", error);
-            displayList.innerHTML = `<div>Hiba: ${error.message}</div>`;
+            container.innerHTML = `<div>Hiba: ${error.message}</div>`;
         }
     }
 
 
-    // 5x4 = 20 elemnek kell lennie. Ellenőrzés:
-    console.log(`Feldolgozott elemek száma: ${csokiObjects.length}. A rács 5x4-es kialakítású (Bootstrap row-cols-5).`);
