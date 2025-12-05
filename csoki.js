@@ -356,9 +356,134 @@ function handleProducts(e) {
 function handleOrder(e) {
     e.preventDefault();
     
-    console.log("Rendelés menüpont aktiválva.");
-    alert("Rendelési űrlap megjelenítése...");
-    // Ide jöhet a rendelési űrlap megjelenítésének logikája
+    const mozaik = document.getElementById('csoki-list-container');
+    mozaik.innerHTML = '';
+    const container = document.getElementById('rolunk');
+    container.innerHTML = `
+        <h1 class="mb-4 text-center text-primary">Megrendelés</h1>
+                <p class="lead text-center mb-5">Töltse ki az űrlapot a finom csokoládék megrendeléséhez.</p>
+
+                <form class="needs-validation" novalidate>
+                    
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">1. Vásárlói adatok</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                
+                                <div class="col-md-6">
+                                    <label for="fullName" class="form-label">Teljes név</label>
+                                    <input type="text" class="form-control" id="fullName" required>
+                                    <div class="invalid-feedback">Kérjük, adja meg a teljes nevét.</div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email cím</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                    <div class="invalid-feedback">Kérjük, adjon meg egy érvényes email címet.</div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Telefonszám (opcionális)</label>
+                                    <input type="tel" class="form-control" id="phone">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">2. Rendelés Tartalma</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                
+                                <div class="col-md-8">
+                                    <label for="productSelect" class="form-label">Válassza ki a terméket</label>
+                                    <select class="form-select" id="productSelect" required>
+                                        <option value="">Válasszon...</option>
+                                        <option value="et">Étcsokoládé (250g)</option>
+                                        <option value="tej">Tejcsokoládé (240g)</option>
+                                        <option value="feher">Fehércsokoládé (210g)</option>
+                                        </select>
+                                    <div class="invalid-feedback">Kérjük, válasszon terméket.</div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <label for="quantity" class="form-label">Mennyiség (db)</label>
+                                    <input type="number" class="form-control" id="quantity" min="1" value="1" required>
+                                    <div class="invalid-feedback">Kérjük, adja meg a mennyiséget.</div>
+                                </div>
+
+                            </div>
+                            
+                            <div class="mt-3">
+                                <button type="button" class="btn btn-outline-success btn-sm">Termék hozzáadása</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">3. Szállítás és Fizetés</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                
+                                <div class="col-12">
+                                    <label for="address" class="form-label">Szállítási cím</label>
+                                    <input type="text" class="form-control" id="address" placeholder="Utca, házszám" required>
+                                    <div class="invalid-feedback">Kérjük, adja meg a szállítási címet.</div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <label for="city" class="form-label">Város</label>
+                                    <input type="text" class="form-control" id="city" required>
+                                    <div class="invalid-feedback">Kérjük, adja meg a várost.</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="zip" class="form-label">Irányítószám</label>
+                                    <input type="text" class="form-control" id="zip" required>
+                                    <div class="invalid-feedback">Kérjük, adja meg az irányítószámot.</div>
+                                </div>
+                                
+                                <div class="col-12 mt-4">
+                                    <label class="form-label">Fizetési mód</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentMethod" id="cashOnDelivery" value="cod" required>
+                                        <label class="form-check-label" for="cashOnDelivery">
+                                            Utánvét (készpénzben a futárnak)
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentMethod" id="cardOnline" value="card" required>
+                                        <label class="form-check-label" for="cardOnline">
+                                            Bankkártyás fizetés (online)
+                                        </label>
+                                    </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Megjegyzés a rendeléshez (opcionális)</label>
+                        <textarea class="form-control" id="notes" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" value="" id="termsAndConditions" required>
+                        <label class="form-check-label" for="termsAndConditions">
+                            Elolvastam és elfogadom az Általános Szerződési Feltételeket (ÁSZF).
+                        </label>
+                        <div class="invalid-feedback">A rendeléshez el kell fogadni az ÁSZF-et.</div>
+                    </div>
+
+                    <button class="btn btn-primary btn-lg w-100" type="submit">Rendelés Elküldése</button>
+
+                </form>
+    `;
 }
 
 /**
@@ -366,7 +491,8 @@ function handleOrder(e) {
  */
 function handleAbout(e) {
     e.preventDefault();
- 
+    const mozaik = document.getElementById('csoki-list-container');
+    mozaik.innerHTML = '';
     const container = document.getElementById('rolunk');
     container.innerHTML = `
     <div class="container mt-5 p-4 bg-light rounded shadow-sm">
