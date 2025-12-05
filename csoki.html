@@ -14,26 +14,58 @@
 
 </head>
 <body class="my_body">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Csoki Bolt</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#" onclick="handleProducts(event)">
+                            Termékek 🍫
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="handleOrder(event)">
+                            Rendelés 🛒
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="handleAbout(event)">
+                            Rólunk ℹ️
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 <div class="btn-group-container">
     <div class="btn-group" role="group" aria-label="Csokoládé kategóriák">
         
-        <button type="button" class="btn btn-outline-primary" onclick="handleFavorite()">
+        <button type="button" class="btn btn-light" onclick="handleFavorite()">
             Favorit
         </button>
 
-        <button type="button" class="btn btn-outline-secondary" onclick="handleDarkChocolate()">
+        <button type="button" class="btn btn-light" onclick="handleDarkChocolate()">
             Étcsoki
         </button>
         
-        <button type="button" class="btn btn-outline-secondary" onclick="handleMilkChocolate()">
+        <button type="button" class="btn btn-light" onclick="handleMilkChocolate()">
             Tejcsoki
         </button>
         
-        <button type="button" class="btn btn-outline-secondary" onclick="handleWhiteChocolate()">
+        <button type="button" class="btn btn-light" onclick="handleWhiteChocolate()">
             Fehércsoki
         </button>
 
-        <button type="button" class="btn btn-outline-secondary" onclick="loadChocolatesFromFile()">
+        <button type="button" class="btn btn-light" onclick="handleAllChocolate()">
             Összes
         </button>
 
