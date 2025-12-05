@@ -368,7 +368,8 @@ function handleAbout(e) {
     e.preventDefault();
  
     const container = document.getElementById('csoki-list-container');
-    container.innerHTML = '<div class="container mt-5 p-4 bg-light rounded shadow-sm">
+    container.innerHTML = `
+    <div class="container mt-5 p-4 bg-light rounded shadow-sm">
         
         <h2 class="display-5 text-center mb-4 text-dark">
             🍫 Bemutatkozás: Csokigyár – A Kézműves Csokoládé Műhelye
@@ -404,6 +405,7 @@ function handleAbout(e) {
             Várjuk szeretettel! Lépjen be hozzánk, és engedje, hogy a csokoládé illata és íze elvarázsolja!
         </p>
 
-    </div>';
+    </div>
+    `;
 
 }
