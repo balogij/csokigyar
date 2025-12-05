@@ -21,9 +21,10 @@
         }
     }
 
+    const csokiObjects = [];
+
     async function loadChocolatesFromFile() {
     const fileName = 'csokibolt.txt';
-    const chocolateList = [];
     const container = document.getElementById('csoki-list-container');
     container.innerHTML = 'A fájl tartalmának feldolgozása...';
 
@@ -42,8 +43,6 @@
         // Feldolgozzuk a szöveget soronként
         const lines = fileContent.trim().split('\n');
 
-        const csokiObjects = [];
-
         lines.forEach(line => {
             const parts = line.split(';');
             if (parts.length === 5) {
@@ -52,6 +51,10 @@
                 csokiObjects.push(csoki);
             }
         });
+
+        if(csokiObjects.length>0){
+            container.innerHTML = '';
+        }
 
         csokiObjects.forEach(csoki => {
             // Létrehozzuk az oszlopot (Bootstrap grid elem)
@@ -82,6 +85,33 @@
             console.error("Hiba történt a fájl betöltése vagy feldolgozása során:", error);
             container.innerHTML = `<div>Hiba: ${error.message}</div>`;
         }
+    }
+
+    function eladas(csokiObjects){
+        const sortedByRendeles = csokiObjects.sort((a, b) => b.rendelt_db - a.rendelt_db);
+        const threeLargestByRendelés = sortedByRendeles.slice(0, 3);
+
+        threeLargestByRendelés.forEach(csoki => {
+            // Létrehozzuk az oszlopot (Bootstrap grid elem)
+            const colDiv = document.createElement('div');
+            // 'col' minden méretben, de a 'row-cols-xl-5' (vagy row-cols-5) beállítja a fő 5 oszlopot
+            colDiv.classList.add('col'); 
+            
+            // Létrehozzuk a kártya tartalmát
+            colDiv.innerHTML = `
+                <div class="card h-100 csoki-card p-3 ${csoki.getCardClass()}">
+                    <h5 class="card-title text-uppercase fw-bold" id="my_h5">${csoki.getTipusDisplay()}</h5>
+                    <hr>
+                    <ul class="list-unstyled">
+                        <li class="my_li"><strong>Súly:</strong> ${csoki.tomeg}g</li>
+                        <li class="my_li"><strong>Csomagolás:</strong> ${csoki.csomagolas.charAt(0).toUpperCase() + csoki.csomagolas.slice(1)}</li>
+                    </ul>
+                </div>
+            `;
+
+            // Hozzáadjuk a kártyát a fő konténerhez
+            container.appendChild(colDiv);
+        });        
     }
 
 
