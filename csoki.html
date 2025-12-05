@@ -8,7 +8,8 @@
           rel="stylesheet" 
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
           crossorigin="anonymous">
-    <link style="csokistyle.css">
+
+    <link href="csokistyle.css" rel="stylesheet">
 
 
 </head>
@@ -24,103 +25,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
         crossorigin="anonymous"></script>
-
+<script src="csoki.js"></script>
 <script>
-    // ----------------------------------------------------
-    // 1. ADATOK ELŐKÉSZÍTÉSE
-    // ----------------------------------------------------
-    const rawData = `1;ét;250;doboz
-2;fehér;210;kimérős
-3;tej;250;doboz
-4;tej;50;papír
-5;ét;80;doboz
-6;tej;240;kimérős
-7;ét;60;doboz
-8;ét;200;papír
-9;tej;110;doboz
-10;ét;150;kimérős
-11;fehér;120;papír
-12;tej;240;doboz
-13;fehér;250;doboz
-14;tej;130;doboz
-15;ét;210;kimérős
-16;fehér;70;kimérős
-17;ét;230;doboz
-18;fehér;50;papír
-19;tej;250;doboz
-20;fehér;220;kimérős`;
-
-    // ----------------------------------------------------
-    // 2. JAVASCRIPT OSZTÁLY (Az Ön Csoki osztályának megfelelője)
-    // ----------------------------------------------------
-    class Csoki {
-        constructor(_id, tipus, tomeg, csomagolas) {
-            this._id = parseInt(_id.trim());
-            this.tipus = tipus.trim().toLowerCase();
-            this.tomeg =  parseInt(tomeg.trim());
-            this.csomagolas = csomagolas.trim().toLowerCase();
-        }
-        
-        // Segédfüggvény a megjelenítéshez
-        getTipusDisplay() {
-            if (this.tipus === 'ét') return 'Étcsokoládé';
-            if (this.tipus === 'tej') return 'Tejcsokoládé';
-            if (this.tipus === 'fehér') return 'Fehér csokoládé';
-            return 'Ismeretlen';
-        }
-        
-        // Segédfüggvény a Bootstrap class nevéhez
-        getCardClass() {
-            return `card-${this.tipus}`;
-        }
-    }
-
-    // ----------------------------------------------------
-    // 3. FELDOLGOZÁS ÉS OBJEKTUMOK LÉTREHOZÁSA
-    // ----------------------------------------------------
-    const csokiObjects = [];
-    const lines = rawData.split('\n');
-
-    lines.forEach(line => {
-        const parts = line.split(';');
-        if (parts.length === 4) {
-            // Létrehozzuk a Csoki objektumot az adatokból
-            const csoki = new Csoki(parts[0], parts[1], parts[2], parts[3]);
-            csokiObjects.push(csoki);
-        }
-    });
-
-    // ----------------------------------------------------
-    // 4. MEGJELENÍTÉS ÉS MOZAIK KIALAKÍTÁSA
-    // ----------------------------------------------------
-    const container = document.getElementById('csoki-list-container');
-
-    csokiObjects.forEach(csoki => {
-        // Létrehozzuk az oszlopot (Bootstrap grid elem)
-        const colDiv = document.createElement('div');
-        // 'col' minden méretben, de a 'row-cols-xl-5' (vagy row-cols-5) beállítja a fő 5 oszlopot
-        colDiv.classList.add('col'); 
-        
-        // Létrehozzuk a kártya tartalmát
-        colDiv.innerHTML = `
-            <div class="card h-100 csoki-card p-3 ${csoki.getCardClass()}">
-                <h5 class="card-title text-uppercase fw-bold" id="my_h5">${csoki.getTipusDisplay()}</h5>
-                <hr>
-                <ul class="list-unstyled">
-                    <li class="my_li"><strong>Súly:</strong> ${csoki.tomeg}g</li>
-                    <li class="my_li"><strong>Csomagolás:</strong> ${csoki.csomagolas.charAt(0).toUpperCase() + csoki.csomagolas.slice(1)}</li>
-                </ul>
-            </div>
-        `;
-
-        // Hozzáadjuk a kártyát a fő konténerhez
-        container.appendChild(colDiv);
-    });
-
-    // 5x4 = 20 elemnek kell lennie. Ellenőrzés:
-    console.log(`Feldolgozott elemek száma: ${csokiObjects.length}. A rács 5x4-es kialakítású (Bootstrap row-cols-5).`);
-
+        window.onload = loadChocolatesFromFile;
 </script>
-
 </body>
 </html>
