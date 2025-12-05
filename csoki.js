@@ -42,96 +42,48 @@
         // Feldolgozzuk a szöveget soronként
         const lines = fileContent.trim().split('\n');
 
+        const csokiObjects = [];
+
         lines.forEach(line => {
             const parts = line.split(';');
-            if (parts.length === 3) {
-                // Létrehozzuk az új Csoki objektumot
-                const csoki = new Csoki(parts[0], parts[1], parts[2]);
-                chocolateList.push(csoki);
+            if (parts.length === 4) {
+                // Létrehozzuk a Csoki objektumot az adatokból
+                const csoki = new Csoki(parts[0], parts[1], parts[2], parts[3], parts[4]);
+                csokiObjects.push(csoki);
             }
         });
-                // 3. Eredmények kiírása és megjelenítése
-                console.log("A Csoki objektumok listája:");
-                console.log(chocolateList);
-                
-                listContainer.innerHTML = '';
 
-                if (chocolateList.length > 0) {
-                    chocolateList.forEach((csoki , index) => {
-//                        const listItem = document.createElement('li');
-//                        listItem.textContent = csoki.toString();
-//                        displayList.appendChild(listItem);
+        const container = document.getElementById('csoki-list-container');
 
-                        const div = document.createElement('div');
-                        div.className = 'chocolate-item';
-                        
-                        const checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox.id = `csoki-${index}`;
-                        checkbox.name = 'chocolate';
-                        checkbox.value = csoki.toString(); // Értéknek beállítjuk az objektum leírását
-                        
-                        const label = document.createElement('label');
-                        label.htmlFor = `csoki-${index}`;
-                        label.textContent = csoki.toString(); // A szöveg a labelben jelenik meg
-                        
-                        div.appendChild(checkbox);
-                        div.appendChild(label);
-                        listContainer.appendChild(div);
+        csokiObjects.forEach(csoki => {
+            // Létrehozzuk az oszlopot (Bootstrap grid elem)
+            const colDiv = document.createElement('div');
+            // 'col' minden méretben, de a 'row-cols-xl-5' (vagy row-cols-5) beállítja a fő 5 oszlopot
+            colDiv.classList.add('col'); 
+            
+            // Létrehozzuk a kártya tartalmát
+            colDiv.innerHTML = `
+                <div class="card h-100 csoki-card p-3 ${csoki.getCardClass()}">
+                    <h5 class="card-title text-uppercase fw-bold" id="my_h5">${csoki.getTipusDisplay()}</h5>
+                    <hr>
+                    <ul class="list-unstyled">
+                        <li class="my_li"><strong>Súly:</strong> ${csoki.tomeg}g</li>
+                        <li class="my_li"><strong>Csomagolás:</strong> ${csoki.csomagolas.charAt(0).toUpperCase() + csoki.csomagolas.slice(1)}</li>
+                    </ul>
+                </div>
+            `;
 
-                    });
-                    console.log(`Sikeresen betöltve ${chocolateList.length} csoki.`)
-                } else {
-                    displayList.innerHTML = '<div>A fájl betöltődött, de nem tartalmazott feldolgozható adatot.</div>';
-                }
+            // Hozzáadjuk a kártyát a fő konténerhez
+            container.appendChild(colDiv);
+        });
 
-            } catch (error) {
-                console.error("Hiba történt a fájl betöltése vagy feldolgozása során:", error);
-                displayList.innerHTML = `<div>Hiba: ${error.message}</div>`;
-            }
+
+        } catch (error) {
+            console.error("Hiba történt a fájl betöltése vagy feldolgozása során:", error);
+            displayList.innerHTML = `<div>Hiba: ${error.message}</div>`;
         }
+    }
 
-    // ----------------------------------------------------
-    // 3. FELDOLGOZÁS ÉS OBJEKTUMOK LÉTREHOZÁSA
-    // ----------------------------------------------------
-    const csokiObjects = [];
-    const lines = rawData.split('\n');
-
-    lines.forEach(line => {
-        const parts = line.split(';');
-        if (parts.length === 4) {
-            // Létrehozzuk a Csoki objektumot az adatokból
-            const csoki = new Csoki(parts[0], parts[1], parts[2], parts[3]);
-            csokiObjects.push(csoki);
-        }
-    });
-
-    // ----------------------------------------------------
-    // 4. MEGJELENÍTÉS ÉS MOZAIK KIALAKÍTÁSA
-    // ----------------------------------------------------
-    const container = document.getElementById('csoki-list-container');
-
-    csokiObjects.forEach(csoki => {
-        // Létrehozzuk az oszlopot (Bootstrap grid elem)
-        const colDiv = document.createElement('div');
-        // 'col' minden méretben, de a 'row-cols-xl-5' (vagy row-cols-5) beállítja a fő 5 oszlopot
-        colDiv.classList.add('col'); 
-        
-        // Létrehozzuk a kártya tartalmát
-        colDiv.innerHTML = `
-            <div class="card h-100 csoki-card p-3 ${csoki.getCardClass()}">
-                <h5 class="card-title text-uppercase fw-bold" id="my_h5">${csoki.getTipusDisplay()}</h5>
-                <hr>
-                <ul class="list-unstyled">
-                    <li class="my_li"><strong>Súly:</strong> ${csoki.tomeg}g</li>
-                    <li class="my_li"><strong>Csomagolás:</strong> ${csoki.csomagolas.charAt(0).toUpperCase() + csoki.csomagolas.slice(1)}</li>
-                </ul>
-            </div>
-        `;
-
-        // Hozzáadjuk a kártyát a fő konténerhez
-        container.appendChild(colDiv);
-    });
 
     // 5x4 = 20 elemnek kell lennie. Ellenőrzés:
     console.log(`Feldolgozott elemek száma: ${csokiObjects.length}. A rács 5x4-es kialakítású (Bootstrap row-cols-5).`);
