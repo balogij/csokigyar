@@ -1,0 +1,37 @@
+
+#my_h5 {
+    background-color: black;
+    opacity: 0.8;
+    border-radius: 5px;
+    padding-left: 5px;
+    text-align: center;
+}
+.my_li {
+    background-color: black;
+    opacity: 0.8;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: right;
+}
+.my_body {
+    background-image: url('./csokik.jpg');
+    background-size: cover;
+}
+/* Egyedi stílusok a mozaikhoz */
+.csoki-card {
+    /* Fix magasság beállítása a mozaik egységességéért */
+    min-height: 200px; 
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+.csoki-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+/* Színek a csokitípusokhoz */
+.card-ét { background-image: url("./etcsoki.jpg"); opacity:0.8;background-size: cover; color: white; } /* Barna */
+.card-tej { background-image: url('./tejcsoki.jpg'); opacity:0.8; background-size: cover; color: white; border-color: #A0A0A0; } /* Levendula */
+.card-fehér { background-image: url('./fehercsoki.jpg'); opacity:0.8; background-size: cover; color: white; border-color: #A0A0A0; } /* Elefántcsont */
