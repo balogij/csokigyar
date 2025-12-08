@@ -1,4 +1,15 @@
+#csoki-list-container {
+    align-items: center;
+}
 
+#termek_gombok {
+    align-items: center;
+    margin-bottom: 15px;
+}
+#imgLogo {
+    display: block;
+    margin: 0 auto;
+}
 #my_h5 {
     background-color: black;
     opacity: 0.8;

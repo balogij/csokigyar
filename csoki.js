@@ -24,6 +24,9 @@
 
 
     async function loadChocolatesFromFile() {
+        const termek_gombsor = document.getElementById('termek_gombok');
+        termek_gombsor.hidden = false;
+
         const csokiObjects = [];
         const fileName = 'csokibolt.txt';
         const menu_container = document.getElementById('rolunk');
@@ -31,6 +34,7 @@
         menu_container.hidden = true;
         const container = document.getElementById('csoki-list-container');
         container.innerHTML = 'A fájl tartalmának feldolgozása...';
+        container.hidden = false;
 
         try {
             // Fetch API hívás a fájl tartalmának lekérésére a tárhelyről
@@ -99,11 +103,15 @@
     }
 
     async function handleFavorite() {
+        const termek_gombsor = document.getElementById('termek_gombok');
+        termek_gombsor.hidden = false;
+
         const menu_container = document.getElementById('rolunk');
         menu_container.innerHTML = '';
         menu_container.hidden = true;
         const container = document.getElementById('csoki-list-container');
         container.innerHTML = 'A fájl tartalmának feldolgozása...';
+        container.hidden = false;
         // 1. Lekérjük a JSON stringet a LocalStorage-ból
         const storedListString = localStorage.getItem('csokiList');
 
@@ -156,11 +164,15 @@
     }
 
     function handleDarkChocolate() {
+        const termek_gombsor = document.getElementById('termek_gombok');
+        termek_gombsor.hidden = false;
+
         const menu_container = document.getElementById('rolunk');
         menu_container.innerHTML = '';
         menu_container.hidden = true;
         const container = document.getElementById('csoki-list-container');
         container.innerHTML = 'A fájl tartalmának feldolgozása...';
+        container.hidden = false;
         const storedListString = localStorage.getItem('csokiList');
 
         let csokiObjects = [];
@@ -207,11 +219,15 @@
     }
 
     function handleMilkChocolate() {
+        const termek_gombsor = document.getElementById('termek_gombok');
+        termek_gombsor.hidden = false;
+
         const menu_container = document.getElementById('rolunk');
         menu_container.innerHTML = '';
         menu_container.hidden = true;
         const container = document.getElementById('csoki-list-container');
         container.innerHTML = 'A fájl tartalmának feldolgozása...';
+        container.hidden = false;
         const storedListString = localStorage.getItem('csokiList');
 
         let csokiObjects = [];
@@ -258,11 +274,15 @@
     }
 
     function handleWhiteChocolate() {
+        const termek_gombsor = document.getElementById('termek_gombok');
+        termek_gombsor.hidden = false;
+
         const menu_container = document.getElementById('rolunk');
         menu_container.innerHTML = '';
         menu_container.hidden = true;
         const container = document.getElementById('csoki-list-container');
         container.innerHTML = 'A fájl tartalmának feldolgozása...';
+        container.hidden = false;
         const storedListString = localStorage.getItem('csokiList');
 
         let csokiObjects = [];
@@ -309,11 +329,15 @@
     }
 
     function handleAllChocolate() {
+        const termek_gombsor = document.getElementById('termek_gombok');
+        termek_gombsor.hidden = false;
+
         const menu_container = document.getElementById('rolunk');
         menu_container.innerHTML = '';
         menu_container.hidden = true;
         const container = document.getElementById('csoki-list-container');
         container.innerHTML = 'A fájl tartalmának feldolgozása...';
+        container.hidden = false;
         const storedListString = localStorage.getItem('csokiList');
 
         let csokiObjects = [];
@@ -359,26 +383,49 @@
     }
 
 
-function handleProducts(e) {
-    // Megakadályozza az alapértelmezett hivatkozási viselkedést (ami az oldal tetejére ugrás lenne)
-    e.preventDefault(); 
-    
-    console.log("Termékek menüpont aktiválva.");
-    alert("A Termékek oldal betöltése folyamatban...");
-    // Ide jöhet a Termékek lista betöltésének logikája
-}
-
 /**
  * Kezeli a Rendelés menüpont kattintását.
  */
 function handleOrder(e) {
     e.preventDefault();
+    const termek_gombsor = document.getElementById('termek_gombok');
+    termek_gombsor.hidden = true;
     
     const mozaik = document.getElementById('csoki-list-container');
     mozaik.innerHTML = '';
     mozaik.hidden = true;
+
+        const storedListString = localStorage.getItem('csokiList');
+        let legorduloelem = '';
+        let csokiObjects = [];
+        csokik = [];
+
+        if (storedListString) {
+            csokiObjects = JSON.parse(storedListString);
+            console.log("A lista sikeresen betöltve a LocalStorage-ból:");
+            console.log(csokiObjects);
+        } else {
+            console.log("Nincs tárolt lista. Betöltés a fájlból...");
+        }
+
+        if(csokiObjects.length>0){
+            csokiObjects.forEach(tarolt => {
+                const csoki = new Csoki(tarolt._id, tarolt.tipus, tarolt.tomeg, tarolt.csomagolas, tarolt.rendelt_db);
+                csokik.push(csoki);
+            })
+        }
+
+        csokik.forEach(csoki => {
+            legorduloelem += `
+                <option value="et">${csoki.getTipusDisplay()} (${csoki.tomeg}g)</option>
+            `;
+        });        
+
+
     const menu_container = document.getElementById('rolunk');
+    menu_container.hidden = false;
     menu_container.innerHTML = `
+    <div class="container mt-5 p-4 bg-light rounded shadow-sm">
         <h1 class="mb-4 text-center text-primary">Megrendelés</h1>
                 <p class="lead text-center mb-5">Töltse ki az űrlapot a finom csokoládék megrendeléséhez.</p>
 
@@ -421,11 +468,9 @@ function handleOrder(e) {
                                 <div class="col-md-8">
                                     <label for="productSelect" class="form-label">Válassza ki a terméket</label>
                                     <select class="form-select" id="productSelect" required>
-                                        <option value="">Válasszon...</option>
-                                        <option value="et">Étcsokoládé (250g)</option>
-                                        <option value="tej">Tejcsokoládé (240g)</option>
-                                        <option value="feher">Fehércsokoládé (210g)</option>
-                                        </select>
+                                        <option value="">Válasszon...</option>` +
+                                        legorduloelem                                        
+                                        + `</select>
                                     <div class="invalid-feedback">Kérjük, válasszon terméket.</div>
                                 </div>
                                 
@@ -502,6 +547,7 @@ function handleOrder(e) {
                     <button class="btn btn-primary btn-lg w-100" type="submit">Rendelés Elküldése</button>
 
                 </form>
+    </div>
     `;
 }
 
@@ -510,19 +556,23 @@ function handleOrder(e) {
  */
 function handleAbout(e) {
     e.preventDefault();
+    const termek_gombsor = document.getElementById('termek_gombok');
+    termek_gombsor.hidden = true;
+
     const mozaik = document.getElementById('csoki-list-container');
     mozaik.innerHTML = '';
     mozaik.hidden = true;
     const menu_container = document.getElementById('rolunk');
+    menu_container.hidden = false;
     menu_container.innerHTML = `
     <div class="container mt-5 p-4 bg-light rounded shadow-sm">
-        
+        <img src="./csokigyar.png" alt="CsokiGyárLogo" title="CsokiGyár" class="img-fluid mb-4 rounded shadow-sm" id="imgLogo">
         <h2 class="display-5 text-center mb-4 text-dark">
-            🍫 Bemutatkozás: Csokigyár – A Kézműves Csokoládé Műhelye
+            A Kézműves Csokoládé Műhelye
         </h2>
         
         <p class="lead">
-            Üdvözöljük a **[Üzlet neve]**-ben, ahol a csokoládé nem csupán édesség, hanem művészi alkotás, és a minőség szenvedéllyel párosul. Közvetlenül a **[Csokigyár neve]** gyár kapujában található delikátesz üzletünk nem más, mint a gyár lelke, egy hely, ahol a frissen készített termékek a legfinomabb formájukban kerülnek az Ön asztalára.
+            Üdvözöljük a CSOKIGYÁR-ban, ahol a csokoládé nem csupán édesség, hanem művészi alkotás, és a minőség szenvedéllyel párosul. Közvetlenül a gyár kapujában található delikátesz üzletünk nem más, mint a gyár lelke, egy hely, ahol a frissen készített termékek a legfinomabb formájukban kerülnek az Ön asztalára.
         </p>
 
         <hr class="my-4">
