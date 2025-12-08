@@ -26,6 +26,9 @@
     async function loadChocolatesFromFile() {
         const csokiObjects = [];
         const fileName = 'csokibolt.txt';
+        const menu_container = document.getElementById('rolunk');
+        menu_container.innerHTML = '';
+        menu_container.hidden = true;
         const container = document.getElementById('csoki-list-container');
         container.innerHTML = 'A fájl tartalmának feldolgozása...';
 
@@ -96,6 +99,9 @@
     }
 
     async function handleFavorite() {
+        const menu_container = document.getElementById('rolunk');
+        menu_container.innerHTML = '';
+        menu_container.hidden = true;
         const container = document.getElementById('csoki-list-container');
         container.innerHTML = 'A fájl tartalmának feldolgozása...';
         // 1. Lekérjük a JSON stringet a LocalStorage-ból
@@ -150,6 +156,9 @@
     }
 
     function handleDarkChocolate() {
+        const menu_container = document.getElementById('rolunk');
+        menu_container.innerHTML = '';
+        menu_container.hidden = true;
         const container = document.getElementById('csoki-list-container');
         container.innerHTML = 'A fájl tartalmának feldolgozása...';
         const storedListString = localStorage.getItem('csokiList');
@@ -198,6 +207,9 @@
     }
 
     function handleMilkChocolate() {
+        const menu_container = document.getElementById('rolunk');
+        menu_container.innerHTML = '';
+        menu_container.hidden = true;
         const container = document.getElementById('csoki-list-container');
         container.innerHTML = 'A fájl tartalmának feldolgozása...';
         const storedListString = localStorage.getItem('csokiList');
@@ -246,6 +258,9 @@
     }
 
     function handleWhiteChocolate() {
+        const menu_container = document.getElementById('rolunk');
+        menu_container.innerHTML = '';
+        menu_container.hidden = true;
         const container = document.getElementById('csoki-list-container');
         container.innerHTML = 'A fájl tartalmának feldolgozása...';
         const storedListString = localStorage.getItem('csokiList');
@@ -294,6 +309,9 @@
     }
 
     function handleAllChocolate() {
+        const menu_container = document.getElementById('rolunk');
+        menu_container.innerHTML = '';
+        menu_container.hidden = true;
         const container = document.getElementById('csoki-list-container');
         container.innerHTML = 'A fájl tartalmának feldolgozása...';
         const storedListString = localStorage.getItem('csokiList');
@@ -358,8 +376,9 @@ function handleOrder(e) {
     
     const mozaik = document.getElementById('csoki-list-container');
     mozaik.innerHTML = '';
-    const container = document.getElementById('rolunk');
-    container.innerHTML = `
+    mozaik.hidden = true;
+    const menu_container = document.getElementById('rolunk');
+    menu_container.innerHTML = `
         <h1 class="mb-4 text-center text-primary">Megrendelés</h1>
                 <p class="lead text-center mb-5">Töltse ki az űrlapot a finom csokoládék megrendeléséhez.</p>
 
@@ -493,8 +512,9 @@ function handleAbout(e) {
     e.preventDefault();
     const mozaik = document.getElementById('csoki-list-container');
     mozaik.innerHTML = '';
-    const container = document.getElementById('rolunk');
-    container.innerHTML = `
+    mozaik.hidden = true;
+    const menu_container = document.getElementById('rolunk');
+    menu_container.innerHTML = `
     <div class="container mt-5 p-4 bg-light rounded shadow-sm">
         
         <h2 class="display-5 text-center mb-4 text-dark">
