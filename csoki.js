@@ -417,7 +417,7 @@ function handleOrder(e) {
 
         csokik.forEach(csoki => {
             legorduloelem += `
-                <option value="et">${csoki.getTipusDisplay()} (${csoki.tomeg}g)</option>
+                <option value="${csoki.getTipusDisplay()} (${csoki.tomeg}g)">${csoki.getTipusDisplay()} (${csoki.tomeg}g)</option>
             `;
         });        
 
@@ -483,7 +483,9 @@ function handleOrder(e) {
                             </div>
                             
                             <div class="mt-3">
-                                <button type="button" class="btn btn-outline-success btn-sm">Termék hozzáadása</button>
+                                <button type="button" onclick="AddItemRendeles()" class="btn btn-outline-success btn-sm">Termék hozzáadása</button>
+                            </div>
+                            <div class="mt-3" id="rendeleseklista">
                             </div>
                         </div>
                     </div>
@@ -604,4 +606,19 @@ function handleAbout(e) {
     </div>
     `;
 
+}
+
+function AddItemRendeles(){
+    selectedItem = document.getElementById('productSelect');
+
+    item_quantity = document.getElementById('quantity');
+
+    const ujsor = document.createElement('div');
+    ujsor.classList.add('col'); 
+    ujsor.innerHTML = `
+        <p>`+ selectedItem.value +` ` + item_quantity.value +` db</p>
+    `;
+
+    rendeleseklista = document.getElementById("rendeleseklista");
+    rendeleseklista.appendChild(ujsor)
 }
