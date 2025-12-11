@@ -613,12 +613,16 @@ function AddItemRendeles(){
 
     item_quantity = document.getElementById('quantity');
 
-    const ujsor = document.createElement('div');
-    ujsor.classList.add('col'); 
-    ujsor.innerHTML = `
-        <p>`+ selectedItem.value +` ` + item_quantity.value +` db</p>
-    `;
+    console.log(selectedItem.value +` ` + item_quantity.value +` db`);
+    if(selectedItem.value!='')
+    {
+        const ujsor = document.createElement('div');
+        ujsor.classList.add('col'); 
+        ujsor.innerHTML = `
+            <p>`+ selectedItem.value +` ` + item_quantity.value +` db</p>
+        `;
 
-    rendeleseklista = document.getElementById("rendeleseklista");
-    rendeleseklista.appendChild(ujsor)
+        rendeleseklista = document.getElementById("rendeleseklista");
+        rendeleseklista.appendChild(ujsor)
+    }
 }
